@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load static%}
+
 {% block title %}
     Login
 {% endblock %}
@@ -14,3 +16,36 @@
         Don't have an account? <a href="/register" target="blank"><strong>register here</strong></a>!
     </div>
 {% endblock %}
+
+<!--<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <link rel="stylesheet" href="Style.css">
+
+</head>
+<body>
+<div id="bg"></div>
+
+<form>
+  <div class="form-field">
+    <input type="email" placeholder="Email / Username" required/>
+  </div>
+  
+  <div class="form-field">
+    <input type="password" placeholder="Password" required/>                         
+  </div>
+  
+  <div class="form-field" style="float: left;">
+    <input type="submit" name="User" value="Log in as User" /> 
+  </div>
+  <div class="form-field" style="float: right;">
+    <input type="submit" name="Admin" value="Admin Login" />
+  </div>
+  
+</form>
+  
+</body>
+</html>
+-->
