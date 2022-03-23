@@ -1,0 +1,316 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel="stylesheet" />
+
+   
+	<script src="js/Chart.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+
+    <title>Phoenix</title>
+
+    <!---------------------------------------Bar grapg -------------------------------------------->
+
+ <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+ <script type="text/javascript">
+   google.charts.load("current", {packages:['corechart']});
+   google.charts.setOnLoadCallback(drawChart);
+   function drawChart() {
+     var data = google.visualization.arrayToDataTable([
+       ["Average", "Tons", { role: "style" } ],
+       ["YOURS", 5.0, "yellow"],
+       ["Society avg.", 4.0, "red"],
+       ["India avg.", 2.0, "purple"],
+       ["World avg.", 4.0, "grey"]
+     ]);
+
+     var view = new google.visualization.DataView(data);
+     view.setColumns([0, 1,
+                      { calc: "stringify",
+                        sourceColumn: 1,
+                        type: "string",
+                        role: "annotation" },
+                      2]);
+
+     var options = {
+       title: "Footprints Statistics",
+       width: 400,
+       height: 250,
+       bar: {groupWidth: "50%"},
+       legend: { position: "none" },
+     };
+     var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+     chart.draw(view, options);
+ }
+ </script>
+
+
+
+ <!------------------------------------- - Bar Garph -------------------------------------------->
+
+ <!------------------------------------- - Comparision Garph -------------------------------------------->
+
+
+ <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+ <script type="text/javascript">
+   google.charts.load('current', {'packages':['bar']});
+   google.charts.setOnLoadCallback(drawChart);
+
+   function drawChart() {
+     var data = google.visualization.arrayToDataTable([
+       ['Week day', 'Red Bin', 'Blue Bin', 'Green Bin'],
+       ['Monday', 2, 1, 2],
+       ['Tuesday', 1,2, 3],
+       ['Wednesday', 2, 0, 3],
+       ['Thursday', 1,2, 1],
+       ['Friday', 1,1, 1]
+     ]);
+
+     var options = {
+       chart: {
+         title: 'GARBAGE BINS',
+         subtitle: 'Red Bin, Blue Bin, and Green Bin',
+       }
+     };
+
+     var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+     chart.draw(data, google.charts.Bar.convertOptions(options));
+   }
+ </script>
+
+<!------------------------------------------------------------------------------------->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['line']});
+      google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('number', 'Day');
+      data.addColumn('number', 'Yours');
+      data.addRows([
+        [1,  7.8],
+        [2,  8.4],
+        [3,  7.2],
+        [4,  8.5]
+      ]);
+
+      var options = {
+        chart: {
+          title: 'Bio-Energy Production'
+        },
+        width: 900,
+        height: 250,
+        axes: {
+          x: {
+            0: {side: 'top'}
+          }
+        }
+      };
+
+      var chart = new google.charts.Line(document.getElementById('line_top_x'));
+
+      chart.draw(data, google.charts.Line.convertOptions(options));
+    }
+  </script>
+
+
+
+  </head>
+  <body>
+      <!-- SIDEBAR -->
+    <section id="sidebar">
+        <a href="#" class="brand">
+          <i class="bx bxs-smile"></i>
+          <span class="text">Phoenix</span>
+        </a>
+        <ul class="side-menu top">
+          <li class="active">
+            <a href="#">
+              <i class="bx bxs-shopping-bag-alt"></i>
+              <span class="text">Home</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="bx bxs-dashboard"></i>
+              <span class="text">Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="bx bxs-doughnut-chart"></i>
+              <span class="text">Mission and Vision</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="bx bxs-group"></i>
+              <span class="text">Team Members</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="bx bxs-group"></i>
+              <span class="text">Contact Us</span>
+            </a>
+          </li>
+        </ul>
+      </section>
+  
+      <!-- SIDEBAR -->
+      <!-- CONTENT -->
+
+    <section id="content">
+        <!--------------------------------------------------------------------->
+        <!-- NAVBAR -->
+        <nav>
+          <i class="bx bx-menu"></i>
+  
+          <form action="#">
+            <div class="form-input">
+              <input type="search" placeholder="Search..." />
+              <button type="submit" class="search-btn">
+                <i class="bx bx-search"></i>
+              </button>
+            </div>
+          </form>
+  
+          <input type="checkbox" id="switch-mode" hidden />
+          <label for="switch-mode" class="switch-mode"></label>
+        </nav>
+        <!-- NAVBAR -->
+        <!--------------------------------------------------------------------->
+         <!-- MAIN -->
+      <main>
+        <div class="head-title">
+          <div class="left">
+            <h1>Dashboard</h1>
+          </div>
+        </div>
+
+
+        <ul class="box-info1">
+            <li>
+              <span class="text">
+                <table>
+                    <tr style="height:50px">
+                       <td colspan="2">Your current footprint</td>
+                       <td  colspan="3">BINS-{FRIDAY}</td>
+                    </tr>
+                    <tr>
+                       <td  class=" year" colspan = "2">YEAR of 2021</td>
+                       <td  class="r">Red</td>
+                       <td  class="b">blue</td>
+                       <td  class="g">Green</td>
+                    </tr>
+                    <tr style="height:50px">
+                       <td colspan="2">5.1 tons of co2</td>
+                       <td>0.7kg</td>
+                       <td>0.4kg</td>
+                       <td> 1.2kg</td>
+                    </tr>
+
+                 </table>
+              </span>
+            </li>
+
+            <li>
+              <span class="text">
+                <table>
+                    <tr>
+                       <td colspan="4">Eqivalent Bio-Energy</td>
+                    </tr>
+                    <tr>
+                       <td  class="year" colspan = "4">Month of April</td>
+                    </tr>
+                    <tr style="height:50px">
+                       <td class="year" colspan="2">Total Green Wastes</td>
+                       <td class="year" colspan="2">Equi. Energy</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">100kg</td>
+                        <td colspan="2">8.25m3</td>
+                     </tr>
+
+                 </table>
+              </span>
+            </li>
+            <li>
+              <span class="text">
+                <table>
+                    <tr>
+                       <td colspan="4">Target Process</td>
+                    </tr>
+                    <tr style="height:50px">
+                       <td class="year" colspan="2">Target Footprint (2022)</td>
+                       <td class="year" colspan="2">% Achieved</td>
+                    </tr>
+                    <tr style="height:50px"> 
+                        <td colspan="2">4.7 tons of CO2</td>
+                        <td colspan="2">56%</td>
+                     </tr>
+
+                 </table>
+              </span>
+            </li>
+          </ul>
+        
+
+
+          <div class="table-data">
+            <div class="todo">
+              <div id="columnchart_values" ></div>
+            </div>
+            <div class="todo">
+              <div id="columnchart_material"></div>
+            </div>
+          </div>
+
+
+          <div class="table-data">
+            <div class="todo">
+                <div id="line_top_x"></div>
+            </div>
+
+            <div class="table-data">
+                <div class="todo">
+                    <span class="text">
+                        <table >
+                            <tr style="height:60px">
+                               <td  colspan="2">Population</td>
+                               <td  colspan="2">JAN-MARCH</td>
+                               <td  colspan="2">MARCH-JUNE</td>
+                               <td  colspan="2">JUNE-AUG</td>
+
+                            </tr>
+                            <tr style="height:60px">
+                                <td colspan="2">BILL DISCOUNT</td>
+                                <td  colspan="2">100RS</td>
+                                <td  colspan="2">120RS</td>
+                                <td  colspan="2">110RS</td>
+ 
+                            </tr>
+        
+                         </table>
+                      </span>
+                </div>
+                <div style="float:right" class="abc">
+                    <h1>CREDITS</h1>
+                    <p>70 points</p>
+                </div>
+               
+
+    </main>
+    <!-- MAIN -->
+  </section>
+  <!-- CONTENT -->
+  <script src="script.js"></script>
+</body>
+</html>
