@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
-import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ft&!novq#8t-@382!^c^^z1a+o$7%-*lvqr6t+k%8amhd4ihv+'
+SECRET_KEY = 'django-insecure-f75d%=u4tyq)8#jj*ti7gariejumq5f234p0)xm+1))#*i6(jd'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -38,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'arenuo',
 ]
 
 MIDDLEWARE = [
@@ -56,8 +54,7 @@ ROOT_URLCONF = 'server.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        # 'DIRS': [],
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -69,7 +66,7 @@ TEMPLATES = [
         },
     },
 ]
-# TEMPLATE_DIRS= [os.path.join(BASE_DIR, 'templates')]
+
 WSGI_APPLICATION = 'server.wsgi.application'
 
 
@@ -124,6 +121,3 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-LOGIN_REDIRECT_URL = "/"
-AUTH_USER_MODEL = 'arenuo.CustomUser'
