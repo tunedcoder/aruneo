@@ -128,3 +128,5 @@ AUTH_USER_MODEL = "aruneo.CustomUser"
 
 LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
+
+# DJANGO_SETTING_MODULE = "server.settings"
