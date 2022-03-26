@@ -15,18 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-<<<<<<< HEAD
-from django.views.generic.base import TemplateView
-=======
->>>>>>> parent of 0c0419d... new sever
 
 urlpatterns = [
-    path("", TemplateView.as_view(template_name="home.html"), name="home"),
     path('admin/', admin.site.urls),
-<<<<<<< HEAD
-    path("aruneo/", include("aruneo.urls")),
-    # path("aruneo/", include("django.contrib.auth.urls")),
-=======
-    path('arenuo/', include('arenuo.urls')),
->>>>>>> parent of 0c0419d... new sever
+    path('aruneo/', include('aruneo.urls')),
 ]

@@ -1,4 +1,4 @@
-"""server URL Configuration
+"""server2 URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.0/topics/http/urls/
@@ -14,19 +14,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
-<<<<<<< HEAD
-from django.views.generic.base import TemplateView
-=======
->>>>>>> parent of 0c0419d... new sever
+from django.urls import path
 
 urlpatterns = [
-    path("", TemplateView.as_view(template_name="home.html"), name="home"),
     path('admin/', admin.site.urls),
-<<<<<<< HEAD
-    path("aruneo/", include("aruneo.urls")),
-    # path("aruneo/", include("django.contrib.auth.urls")),
-=======
-    path('arenuo/', include('arenuo.urls')),
->>>>>>> parent of 0c0419d... new sever
 ]
