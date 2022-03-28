@@ -4,12 +4,15 @@
 <head>
   <meta charset="utf-8">
   <title>{% block title %}Django Auth Tutorial{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 </head>
 <body>
   <main>
+    {% include "partials/header.html" %}
     {% block content %}
     {% endblock %}
+    {% include "partials/footer.html" %}
   </main>
 </body>
 </html>

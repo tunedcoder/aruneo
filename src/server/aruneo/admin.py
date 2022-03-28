@@ -13,9 +13,10 @@ class CustomUserAdmin(UserAdmin):
     # list_display = ('email', 'date_of_birth', 'is_admin')
     # list_filter = ('is_admin',)
     fieldsets = (
-        (None, {'fields': ('email', 'password')}),
-        ('Personal info', {'fields': ('fun','first_name','last_name','user_id')}),
+        (None, {'fields': ('email', 'username','password')}),
+        ('Personal info', {'fields': ('first_name','last_name','user_id')}),
         # ('Permissions', {'fields': ('is_admin',)}),
+        ('Data Collection', {'fields': ('soc_id','house_id')}),
     )
 
 

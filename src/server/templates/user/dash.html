@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+    
+    {% block title %}
+        Dash Board
+    {% endblock %}
+    
+    {% block content %}
+    {% if user.is_authenticated %}
+    Hi {{ cnt.user_info.uname }}
+    <p><a href="{% url 'logout' %}">Log Out</a></p>
+    {% endif %}
+    {% endblock %}

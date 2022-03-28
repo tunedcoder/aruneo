@@ -1,15 +1,24 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block title %}Log In{% endblock %}
 
 {% block content %}
-<h2>Log In</h2>
-<form method="post">
-  {% csrf_token %}
-  {% for fm in form %}
-    {{ fm.label_tag }} {{ fm }} {{fm.errors|striptags }}<br><br>
-  {% endfor %}
-  <button type="submit">Log In</button>
-</form>
-<a href="{% url 'signup' %}"> SignUp </a>
+<div class ="main">
+  <div class="nirma-logo">
+    <img src="{% static 'img/Nirma University.jpg' %}" alt="Nirma University" width="100" height="100">
+  </div>
+  <div class="form-group">
+    <h2 class="form-title"> Aruneo-Log In</h2>
+    <div class="form">
+      <form method="post">
+      {% csrf_token %}
+      {% for fm in form %}
+        <div class = "form-input">{{ fm }} {{fm.errors|striptags }}</div><br><br>
+      {% endfor %}
+      <button type="submit">Log In</button>
+      </form>
+    <a href="{% url 'signup' %}"> SignUp </a>
+    </div>
+  </div>
+</div>
 {% endblock %}
