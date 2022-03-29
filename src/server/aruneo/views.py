@@ -9,9 +9,8 @@ from django.contrib.auth.decorators import login_required
 from .models import CustomUser,Society,Data
 
 def home(request):
-    if request.method == "POST":
-        if request.user.is_athenticated():
-            return render(request, "user/home.html")
+    if request.user.is_authenticated:
+        return render(request, "user/dash.html")
 
     return render(request, "landing/home.html")
 
@@ -26,6 +25,8 @@ class SignUpView(CreateView):
 #     template_name = "user/login.html"
 
 def user_login(request):
+    # if request.user.is_athenticated():
+    #     return render(request, "user/dash.html")
     if request.method == "POST":
         fm = AuthenticationForm(request=request, data=request.POST)
         if fm.is_valid():
@@ -37,7 +38,7 @@ def user_login(request):
                 return HttpResponseRedirect('/aruneo/')
     else:
         fm = AuthenticationForm()
-    return render(request, "user/login.html", {"form": fm})
+        return render(request, "user/login.html", {"form": fm})
 
 def user_logout(request):
     logout(request)
@@ -67,7 +68,18 @@ def user_dash(request):
 @csrf_exempt
 def data_enter(request):
     if request.method == "POST":
-        pass
+        if Society.objects.filter(transmitter_id=request["System ID"]).exists():
+            society = Society.objects.get(transmitter_id=request["System ID"])
+            so_id = society.society_id
+            Houses = request["houseID"]
+            for i in range(len(Houses)):
+                g_r = request["GreenWasteReading"][i]
+                b_r = request["BlueWasteReading"][i]
+                r_r = request["RedWasteReading"][i]
+                d_id = datetime.date.today().strftime("%d%m%Y")+""+soc_id+""+Houses[i]
+                u_associated = CustomUser.objects.get(soc_id=so_id,house_id=Houses[i])
+                d = Data(data_id = d_id,date=datetime.date.today(), user_associated=u_associated.user_id,soc_id=so_id,house_id=Houses[i],green_waste_reading=g_r,blue_waste_reading=b_r,red_waste_reading=r_r)
+                d.save()
     else:
         return HttpResponse()
 

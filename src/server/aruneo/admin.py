@@ -8,7 +8,7 @@ class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomChangeForm
     model = CustomUser
-    list_display = ["username","user_id"]
+    list_display = ["username","user_id","soc_name","house_id"]
 
     # list_display = ('email', 'date_of_birth', 'is_admin')
     # list_filter = ('is_admin',)
@@ -16,13 +16,13 @@ class CustomUserAdmin(UserAdmin):
         (None, {'fields': ('email', 'username','password')}),
         ('Personal info', {'fields': ('first_name','last_name','user_id')}),
         # ('Permissions', {'fields': ('is_admin',)}),
-        ('Data Collection', {'fields': ('soc_id','house_id')}),
+        ('Data Collection', {'fields': ('soc_name','house_id')}),
     )
 
 
 class SocietyAdmin(admin.ModelAdmin):
     model =Society
-    list_display = ["name","transmitter_id"]
+    list_display = ["name","soc_id","transmitter_id"]
 
 admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(Society, SocietyAdmin)
