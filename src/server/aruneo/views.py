@@ -76,7 +76,7 @@ def data_enter(request):
                 g_r = request["GreenWasteReading"][i]
                 b_r = request["BlueWasteReading"][i]
                 r_r = request["RedWasteReading"][i]
-                d_id = datetime.date.today().strftime("%d%m%Y")+""+soc_id+""+Houses[i]
+                d_id = datetime.date.today().strftime("%d%m%Y")+"_"+soc_id+"_"+Houses[i]
                 u_associated = CustomUser.objects.get(soc_id=so_id,house_id=Houses[i])
                 d = Data(data_id = d_id,date=datetime.date.today(), user_associated=u_associated.user_id,soc_id=so_id,house_id=Houses[i],green_waste_reading=g_r,blue_waste_reading=b_r,red_waste_reading=r_r)
                 d.save()

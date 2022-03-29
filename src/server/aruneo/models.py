@@ -35,9 +35,9 @@ class Data(models.Model):
     date = models.DateField(blank=True,null=True)
     user_associated = models.ForeignKey(CustomUser,default='', on_delete=models.CASCADE)
     work =models.CharField(max_length=50,default="hello")
-    bucket_1 = models.IntegerField(default=0)
-    bucket_2 = models.IntegerField(default=0)
-    bucket_3 = models.IntegerField(default=0)
+    bucket_1 = models.FloatField(default=0)
+    bucket_2 = models.FloatField(default=0)
+    bucket_3 = models.FloatField(default=0)
 
 
     def __str__(self):
