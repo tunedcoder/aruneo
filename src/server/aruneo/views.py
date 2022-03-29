@@ -7,7 +7,11 @@ from django.contrib.auth import authenticate,login,logout
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from django.contrib.auth.decorators import login_required
 from .models import CustomUser,Society,Data
-
+import pandas as pd
+import datetime
+import json
+#import redirect form django
+from django.shortcuts import redirect
 def home(request):
     if request.user.is_authenticated:
         return render(request, "user/dash.html")
@@ -27,18 +31,37 @@ class SignUpView(CreateView):
 def user_login(request):
     # if request.user.is_athenticated():
     #     return render(request, "user/dash.html")
-    if request.method == "POST":
-        fm = AuthenticationForm(request=request, data=request.POST)
-        if fm.is_valid():
-            uname = fm.cleaned_data['username']
-            pwd = fm.cleaned_data['password']
-            user = authenticate(username=uname, password=pwd)
-            if user is not None:
-                login(request, user)
-                return HttpResponseRedirect('/aruneo/')
+    # if request.method == "POST":
+    #     fm = AuthenticationForm(request=request, data=request.POST)
+    #     if fm.is_valid():
+    #         uname = fm.cleaned_data['username']
+    #         pwd = fm.cleaned_data['password']
+    #         user = authenticate(username=uname, password=pwd)
+    #         if user is not None:
+    #             login(request, user)
+    #             return HttpResponseRedirect('/aruneo/')
+    # else:
+    #     fm = AuthenticationForm()
+    #     return render(request, "user/login.html", {"form": fm})
+    
+    if request.user.is_authenticated:
+        return render(request,'home.html') 
+    if request.method == 'POST':
+        print(request.POST)
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username =username, password = password)
+        print(user)
+        if user is not None:
+            login(request,user)
+            return redirect("http://127.0.0.1:5500/src/salonee/SIH/site1/index.html")
+        else:
+            form = AuthenticationForm()
+            return render(request,'user/login.html',{'form':form})
+     
     else:
-        fm = AuthenticationForm()
-        return render(request, "user/login.html", {"form": fm})
+        form = AuthenticationForm()
+        return render(request, 'user/login.html', {'form':form})
 
 def user_logout(request):
     logout(request)
@@ -48,20 +71,32 @@ def user_logout(request):
 def user_dash(request):
     if request.user.is_authenticated:
         user = request.user
-        loaded_user = CustomUser.objects.get(username=user.username)
-        garbage_data = Data.objects.get(user_associated=loaded_user.user_id)
+        u_id = CustomUser.objects.get(username=user)
+        loaded_user = CustomUser.objects.filter(username=user.username)
+        date_today = datetime.date.today()
+        date_60 = date_today - datetime.timedelta(days=60)
+        garbage_data = Data.objects.filter(user_associated = u_id, date_enter__range=[date_60, date_today])
+        df = pd.DataFrame(list(garbage_data.values()))
+        df.date_enter = df.date_enter.apply(lambda x: x.strftime('%Y-%m-%d'))
+        json_records = df.reset_index().to_json(orient ='records') 
+        d_json = [] 
+        d_json = json.loads(json_records) 
+        # print(d_json)
         cnt ={
             "user_info": {
-                "uid": loaded_user.user_id,
-                "uname": loaded_user.username,
-                "ufname": loaded_user.first_name,
-                "ulname": loaded_user.last_name,
-                "is_sec": is_secratry(loaded_user),
-                "g_data": garbage_data,
+                "uid": u_id.user_id,
+                "uname": u_id.username,
+                # "ufname": loaded_user.first_name,
+                # "ulname": loaded_user.last_name,
+                # "is_sec": is_secratry(loaded_user),
+                # "g_data": garbage_data,
+            },
+            "data":{
+                "d": d_json      
             }
         }
 
-        garbage_data = Data.objects.get(user_id=loaded_user.user_id)
+        # garbage_data = Data.objects.get(user_id=loaded_user.user_id)
 
         return render(request, "user/dash.html",{"cnt":cnt})
 

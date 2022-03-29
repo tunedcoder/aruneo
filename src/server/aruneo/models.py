@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django_pandas.managers import DataFrameManager
 import uuid
 from datetime import datetime
 
@@ -32,12 +33,13 @@ class Data(models.Model):
     # data_id must be an auto generated number
     data_id = models.CharField(primary_key=True,max_length=100, blank=True, unique=True)
     soc_id = models.ForeignKey(Society,default ='', on_delete=models.CASCADE)
-    date = models.DateField(blank=True,null=True)
+    date_enter = models.DateField(blank=True,null=True)
     user_associated = models.ForeignKey(CustomUser,default='', on_delete=models.CASCADE)
-    work =models.CharField(max_length=50,default="hello")
+    work = models.CharField(max_length=50,default="hello")
     bucket_1 = models.FloatField(default=0)
     bucket_2 = models.FloatField(default=0)
     bucket_3 = models.FloatField(default=0)
+    # pdobjects = DataFrameManager()
 
     def __str__(self):
         return self.data_id

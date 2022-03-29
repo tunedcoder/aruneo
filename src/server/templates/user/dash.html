@@ -7,6 +7,36 @@
     {% block content %}
     {% if user.is_authenticated %}
     Hi {{ cnt.user_info.uname }}
+    <table class="table table-dark table-striped"> 
+        <thead> 
+        <tr> 
+            <th>data_id</th> 
+            <th>soc_id_id</th> 
+            <th>date</th> 
+            <th>user_associated_id</th>
+            <th> bucket_1</th>
+            <th> bucket_2</th>
+            <th> bucket_3</th>
+            
+        </tr> 
+        </thead> 
+        <tbody> 
+        <!-- jinja2 Technique -->
+        {% if cnt.data %} 
+        <h1> works </h1>
+        {% for i in cnt.data.d %} 
+        <tr> 
+            <td>{{i.data_id}}</td> 
+            <td>{{i.soc_id_id}}</td> 
+            <td>{{i.date_enter}}</td> 
+            <td>{{i.user_associated_id}}</td>
+            <td>{{i.bucket_1}}</td> 
+            <td>{{i.bucket_2}}</td> 
+        </tr> 
+        {% endfor %} 
+        {% endif %} 
+        </tbody> 
+    </table>
     <p><a href="{% url 'logout' %}">Log Out</a></p>
     {% endif %}
     {% endblock %}
