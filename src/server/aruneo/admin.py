@@ -24,6 +24,10 @@ class SocietyAdmin(admin.ModelAdmin):
     model =Society
     list_display = ["name","soc_id","transmitter_id"]
 
+class DataAdmin(admin.ModelAdmin):
+    model =Data
+    list_display = ["data_id","soc_id"]
+
 admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(Society, SocietyAdmin)
-admin.site.register(Data)
+admin.site.register(Data,DataAdmin)

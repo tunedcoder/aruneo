@@ -39,7 +39,6 @@ class Data(models.Model):
     bucket_2 = models.FloatField(default=0)
     bucket_3 = models.FloatField(default=0)
 
-
     def __str__(self):
         return self.data_id
     
