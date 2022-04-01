@@ -8,6 +8,14 @@ class CustomUser(AbstractUser):
     house_id  = models.IntegerField(null=True)
     user_id = models.CharField(primary_key=True,max_length=100, default=uuid.uuid4,blank=True)
     soc_name = models.ForeignKey('Society', on_delete=models.CASCADE,default=1)
+    Total_Bio_Energy=models.FloatField(default=0)
+    Bio_energyshare=models.FloatField(default=0)
+    Average_Footprint=models.FloatField(default=0)
+    Credits = models.IntegerField(default=0)
+    Total_Waste=models.FloatField(default=0)
+    Total_Green_Waste=models.FloatField(default=0)
+    Total_Blue_Waste =models.FloatField(default=0)
+    Total_Red_Waste= models.FloatField(default=0)
 
     fun = models.CharField(max_length=50, default ="delete this")
     def __str__(self):
@@ -16,6 +24,8 @@ class CustomUser(AbstractUser):
         user_data = Data.objects.get(user_id=self.user_id)
     def find_society(self):
         soc_id = Society.objects.get(name=self.soc_name).soc_id
+    def calculate_data(self):
+        pass
 
 class Society(models.Model):
     name = models.CharField(max_length=50)

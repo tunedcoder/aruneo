@@ -14,16 +14,16 @@
             <th>soc_id_id</th> 
             <th>date</th> 
             <th>user_associated_id</th>
-            <th> bucket_1</th>
-            <th> bucket_2</th>
-            <th> bucket_3</th>
+            <th> Green Waste (in KG)</th>
+            <th> Blue Waste (in KG)</th>
+            <th> Red Waste (in KG)</th>
             
         </tr> 
         </thead> 
         <tbody> 
         <!-- jinja2 Technique -->
         {% if cnt.data %} 
-        <h1> works </h1>
+        <h1> Aruneo Data </h1>
         {% for i in cnt.data.d %} 
         <tr> 
             <td>{{i.data_id}}</td> 
@@ -32,6 +32,7 @@
             <td>{{i.user_associated_id}}</td>
             <td>{{i.bucket_1}}</td> 
             <td>{{i.bucket_2}}</td> 
+            <td>{{i.bucket_3}}</td> 
         </tr> 
         {% endfor %} 
         {% endif %} 

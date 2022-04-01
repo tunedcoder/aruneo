@@ -29,7 +29,7 @@ class SignUpView(CreateView):
 #     template_name = "user/login.html"
 
 def user_login(request):
-    # if request.user.is_athenticated():
+    # if request.user.is_athenticated:
     #     return render(request, "user/dash.html")
     # if request.method == "POST":
     #     fm = AuthenticationForm(request=request, data=request.POST)
@@ -67,6 +67,28 @@ def user_logout(request):
     logout(request)
     return render(request, "user/logout.html")
 
+
+@csrf_exempt
+def data_enter(request):
+    if request.method == "POST":
+        if Society.objects.filter(transmitter_id=request["System ID"]).exists():
+            society = Society.objects.get(transmitter_id=request["System ID"])
+            so_id = society.society_id
+            Houses = request["houseID"]
+            for i in range(len(Houses)):
+                g_r = request["GreenWasteReading"][i]
+                b_r = request["BlueWasteReading"][i]
+                r_r = request["RedWasteReading"][i]
+                d_id = datetime.date.today().strftime("%d%m%Y")+"_"+soc_id+"_"+Houses[i]
+                u_associated = CustomUser.objects.get(soc_id=so_id,house_id=Houses[i])
+                d = Data(data_id = d_id,date=datetime.date.today(), user_associated=u_associated.user_id,soc_id=so_id,house_id=Houses[i],green_waste_reading=g_r,blue_waste_reading=b_r,red_waste_reading=r_r)
+                d.save()
+    else:
+        return HttpResponse()
+
+def is_secratry(user):
+    return user.groups.filter(name="Secretary").exists()
+
 @login_required
 def user_dash(request):
     if request.user.is_authenticated:
@@ -100,23 +122,36 @@ def user_dash(request):
 
         return render(request, "user/dash.html",{"cnt":cnt})
 
-@csrf_exempt
-def data_enter(request):
-    if request.method == "POST":
-        if Society.objects.filter(transmitter_id=request["System ID"]).exists():
-            society = Society.objects.get(transmitter_id=request["System ID"])
-            so_id = society.society_id
-            Houses = request["houseID"]
-            for i in range(len(Houses)):
-                g_r = request["GreenWasteReading"][i]
-                b_r = request["BlueWasteReading"][i]
-                r_r = request["RedWasteReading"][i]
-                d_id = datetime.date.today().strftime("%d%m%Y")+"_"+soc_id+"_"+Houses[i]
-                u_associated = CustomUser.objects.get(soc_id=so_id,house_id=Houses[i])
-                d = Data(data_id = d_id,date=datetime.date.today(), user_associated=u_associated.user_id,soc_id=so_id,house_id=Houses[i],green_waste_reading=g_r,blue_waste_reading=b_r,red_waste_reading=r_r)
-                d.save()
-    else:
-        return HttpResponse()
 
-def is_secratry(user):
-    return user.groups.filter(name="Secretary").exists()
+@login_required
+def soc_dash(request):
+    if request.user.is_authenticated:
+        user = request.user
+        u_id = CustomUser.objects.get(username=user)
+        loaded_user = CustomUser.objects.filter(username=user.username)
+        date_today = datetime.date.today()
+        date_60 = date_today - datetime.timedelta(days=60)
+        garbage_data = Data.objects.filter(user_associated = u_id, date_enter__range=[date_60, date_today])
+        df = pd.DataFrame(columns=["User"," Total Bio Energy","Bio energy share","Average FootPrint","Credits","Total Waste","Total Green Waste","Total Blue Waste","Total Red Waste"])
+        # df.date_enter = df.date_enter.apply(lambda x: x.strftime('%Y-%m-%d'))
+        # json_records = df.reset_index().to_json(orient ='records') 
+        d_json = [] 
+        d_json = json.loads(json_records) 
+        # print(d_json)
+        cnt ={
+            "user_info": {
+                "uid": u_id.user_id,
+                "uname": u_id.username,
+                # "ufname": loaded_user.first_name,
+                # "ulname": loaded_user.last_name,
+                # "is_sec": is_secratry(loaded_user),
+                # "g_data": garbage_data,
+            },
+            "data":{
+                "d": d_json      
+            }
+        }
+
+        # garbage_data = Data.objects.get(user_id=loaded_user.user_id)
+
+        return render(request, "user/dash.html",{"cnt":cnt})
